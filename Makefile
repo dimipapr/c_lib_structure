@@ -57,5 +57,6 @@ print:
 clean:
 	@rm -rf $(DEBUG_DIR)
 	@rm -rf $(TESTS_DIR)/$(DEBUG_DIR)
+	@rm -rf $(TESTS_DIR)/*.log
 
 .PHONY:build_lib_debug build_tests_debug print clean
