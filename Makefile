@@ -25,6 +25,11 @@ DEBUG_LDFLAGS:=-L./$(LIB_DEBUG_TARGET_DIR) -l$(LIB_NAME)
 
 build_lib_debug: $(LIB_DEBUG_TARGET)
 
+build_tests_debug:$(LIB_DEBUG_TARGET) $(TESTS_DEBUG_BINARIES)
+
+run_tests_debug:build_tests_debug
+	bash run_tests.sh $(TESTS_DEBUG_BINARIES)
+
 $(LIB_DEBUG_TARGET):$(LIB_DEBUG_OBJECTS)
 	@mkdir -p $(dir $@)
 	ar rcs $(LIB_DEBUG_TARGET) $(LIB_DEBUG_OBJECTS)
@@ -34,7 +39,6 @@ $(LIB_DEBUG_BUILD_DIR)/%.o:$(LIB_SOURCES_DIR)/%.c $(LIB_SOURCES_DIR)/%.h
 	@mkdir -p $(dir $@)
 	$(CC) -c $(CFLAGS) $(DEBUG_CFLAGS) $< -o $@
 
-build_tests_debug:$(LIB_DEBUG_TARGET) $(TESTS_DEBUG_BINARIES)
 
 $(TESTS_DEBUG_BINARIES_DIR)/test_%:$(TESTS_DEBUG_BUILD_DIR)/test_%.o
 	@mkdir -p $(dir $@)
@@ -54,4 +58,4 @@ clean:
 	@rm -rf $(DEBUG_DIR)
 	@rm -rf $(TESTS_DIR)/$(DEBUG_DIR)
 
-.PHONY:build_lib_debug print clean
+.PHONY:build_lib_debug build_tests_debug print clean
