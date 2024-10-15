@@ -4,5 +4,5 @@
 int main(){
     puts(queue_gets());
     fprintf(stderr,"failed test\n");
-    return 1;
+    return 0;
 }
